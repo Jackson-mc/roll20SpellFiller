@@ -1,0 +1,30 @@
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+import time
+
+driver = webdriver.Chrome(executable_path='./chromedriver.exe')
+driver.get('https://www.roll20.net')
+loginButton = driver.find_element_by_class_name("dropdown-toggle")
+loginButton.click()
+driver.implicitly_wait(5)
+elementEmail = driver.find_element_by_name("email")
+elementPassword = driver.find_element_by_name("password")
+elementEmail.send_keys('yourEmail')
+elementPassword.send_keys('yourPassword')
+loginButton = driver.find_element_by_class_name('btn-primary')
+loginButton.click()
+driver.implicitly_wait(30)
+
+navCharSheet = driver.find_element_by_xpath('/html/body/div[48]/div[2]/div/ul/li[2]/a')
+navCharSheet.click()
+
+navSpells = driver.find_element_by_xpath('/html/body/div[48]/div[2]/div/div/form/div[2]/div[1]/div[4]/input[3]')
+navSpells.click()
+
+addSpell = driver.find_elements_by_class_name('repcontrol_add')
+time.sleep(1)
+addSpell[16].click()
+
+##note xpath differs slightly for each element, should be able to iterate through them, maybe see if theres an option for tabbing?
